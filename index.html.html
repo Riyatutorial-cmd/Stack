@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmic Portfolio</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#050816;
+    color:white;
+    overflow-x:hidden;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+header{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+h1{
+    font-size:4rem;
+    background:linear-gradient(90deg,#00f5ff,#ff00ea);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+p{
+    max-width:600px;
+    margin:20px;
+    opacity:0.9;
+}
+
+.btn{
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(90deg,#00f5ff,#ff00ea);
+    color:white;
+    cursor:pointer;
+    font-size:1rem;
+}
+
+section{
+    padding:100px 10%;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:25px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+footer{
+    text-align:center;
+    padding:40px;
+    opacity:0.7;
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<header>
+    <h1>Cosmic Portfolio</h1>
+    <p>
+        A futuristic website experience with animated stars,
+        glassmorphism design, and smooth interactions.
+    </p>
+    <button class="btn">Explore</button>
+</header>
+
+<section>
+    <h2>Projects</h2>
+    <br>
+    <div class="cards">
+        <div class="card">
+            <h3>AI Assistant</h3>
+            <p>Smart chatbot powered by modern AI.</p>
+        </div>
+
+        <div class="card">
+            <h3>Creative Studio</h3>
+            <p>Designs, animations and digital experiences.</p>
+        </div>
+
+        <div class="card">
+            <h3>Future App</h3>
+            <p>Next-generation productivity platform.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 Cosmic Portfolio
+</footer>
+
+<script>
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let stars = [];
+
+for(let i=0;i<200;i++){
+    stars.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        d:Math.random()*1
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="white";
+
+    stars.forEach(s=>{
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fill();
+
+        s.y += s.d;
+
+        if(s.y > canvas.height){
+            s.y = 0;
+            s.x = Math.random()*canvas.width;
+        }
+    });
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+window.addEventListener("resize",()=>{
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+});
+</script>
+
+</body>
+</html>
